@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <% include('./header.ejs') %>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        form {
+            align-items: center;
+            vertical-align: middle;
+            width: 100%;
+            height: 100%;
+        }
+
+        table {
+            margin: 40% auto 0 auto;
+            text-align: center;
+            font-size: 50px;
+        }
+
+        input {
+            height: 50px;
+            width: 400px;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> <%= title %> </h1>
+    <form method="POST" action="./login">
+        <table border="0">
+            <tr>
+                <td><strong>아이디</strong></td>
+                <td><input type="text" name="id"></td>
+            </tr>
+            <tr>
+                <td><strong>비밀번호</strong></td>
+                <td><input type="password" name="pw"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right"><input type="submit" value="로그인" style="font-size: 30px"></td>
+            </tr>
+    </form>
+</body>
+
+</html>

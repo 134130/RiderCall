@@ -1,0 +1,97 @@
+<html>
+
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    .contents {
+        font-size: 30px;
+        align-content: center;
+    }
+
+    ul {
+        width: 94%;
+        height: 10%;
+        font-size: 3em;
+        background-color: aquamarine;
+        border: 2px;
+        margin: 1%;
+        display: inline-block;
+        float: left;
+    }
+
+    #btn {
+        width: 28%;
+        height: 94%;
+        background-color: cornflowerblue;
+        font-size: 0.6em;
+        text-align: center;
+        display: table;
+        float: right;
+    }
+
+    .list {
+        font-size: 0.5em;
+    }
+
+    p {
+        display: table-cell;
+    }
+</style>
+
+<head>
+    <% include('./header.ejs') %>
+    <meta http-equiv="refresh" content="10">
+</head>
+
+<script>
+    function btn_accept(no) {
+        document.location.href = "./rider/accept?no=" + no;
+    }
+    function btn_running(no) {
+        document.location.href = "./rider/running?no=" + no;
+    }
+    function btn_finish(no) {
+        document.location.href = "./rider/finish?no=" + no;
+    }
+</script>
+
+
+<body>
+    <h1> <%= title %> </h1>
+    <div class="contents">
+        <% for(i=0; i<noList.length; i++) { %>
+        <ul id="li " +<%= i %>>
+            <div style="float: left;">
+                <div class="list">
+                    <%= nameList[i] %>&nbsp&nbsp
+                    <%= phoneList[i] %>
+                </div>
+                <div class="list">
+                    <%= order_timeList[i] %>
+                </div>
+                <div class="list">
+                    <% if (statusList[i] == 'waiting') { %>
+                        대기중
+                    <% } else if (statusList[i] == 'accepted') { %>
+                        수락완료
+                    <% } else if (statusList[i] == 'running') { %> 
+                        배달중
+                    <% } %>
+                </div>
+            </div>
+            <% if (statusList[i]=='waiting') { %>
+                <div id="btn" onclick="btn_accept(<%= noList[i] %>)"><div style="display: table-cell; vertical-align: middle;">수락</div></div>
+            <% } else if (statusList[i] == 'accepted') { %>
+                <div id="btn" onclick="btn_running(<%= noList[i] %>)" style="background-color: rgb(0, 185, 0);"><div style="display: table-cell; vertical-align: middle;">수령</div></div>
+            <% } else if (statusList[i] == 'running') { %>
+                <div id="btn" onclick="btn_finish(<%= noList[i] %>)" style="background-color: gold;"><div style="display: table-cell; vertical-align: middle;">배달완료</div></div>
+            <% } %>
+        </ul>
+        <% } %>
+    </div>
+</body>
+
+</html>

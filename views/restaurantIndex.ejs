@@ -1,0 +1,125 @@
+<html>
+
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    div #call_btn {
+        display: table;
+        width: 140px;
+        height: 100px;
+        background-color: skyblue;
+        float: left;
+    }
+
+    div #call_text {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold;
+    }
+
+    div #rider_list {
+        display: inline-block;
+        width: 800px;
+    }
+
+    ul {
+        width: 100%;
+        height: 60px;
+    }
+
+    div .list {
+        float: left;
+        height: 50px;
+        margin: 0px 18px 0px 0px;
+        font-size: 26px;
+        display: table;
+    }
+
+    div .list.text {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    div .list.btn {
+        width: 12%;
+        height: 50px;
+        background-color: red;
+        display: table;
+        font-weight: bold;
+        float: right;
+    }
+
+    div #line {
+        width: 90%;
+        height: 1px;
+        background-color: black;
+    }
+</style>
+
+<head>
+    <% include('./header.ejs') %>
+    <script>
+        function call_rider() {
+            window.location.href = "/call_rider";
+        }
+
+        function btn_cancle(no) {
+            window.location.href = "/rest/cancle?no=" + no;
+        }
+    </script>
+</head>
+
+<body>
+    <h1> <%= title %> </h1>
+    <div>
+        <div id="call_btn" onClick="call_rider()">
+            <div id="call_text">
+                CALL
+            </div>
+        </div>
+        <div id="rider_list">
+            <% for(i=0; i<noList.length; i++) { %>
+            <ul>
+                <div class="list">
+                    <div class="list text">
+                        <%= noList[i] %>
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="list text">
+                        <%= order_timeList[i] %></div>
+                </div>
+                <div class="list">
+                    <div class="list text">
+                        <% if (statusList[i] == 'waiting') { %>
+                        대기중
+                        <% } else if (statusList[i] == 'accepted') { %>
+                        수락됨
+                        <% } else if (statusList[i] == 'running') { %>
+                        배달중
+                        <% } %>
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="list text"><%= phoneList[i] %></div>
+                </div>
+                <% if (statusList[i] == "waiting" || statusList[i] == "accepted") { %>
+                <div class="list btn" onclick="btn_cancle(<%= noList[i] %>)">
+                    <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                        취소
+                    </div>
+                </div>
+                <div id="line"></div>
+                <% } %>
+            </ul>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+</html>
